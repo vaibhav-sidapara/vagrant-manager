@@ -1,9 +1,7 @@
 <h1 align="center">
-  <br>
-  <img src="/assets/logo/logo.gif" alt="Vagrant Manager"></a>
-  <br>
-  Vagrant Manager
-  <br>
+    <img src="/assets/logo/logo.gif" alt="Vagrant Manager" width="400px">
+    <br>
+    Vagrant Manager
 </h1>
 
 Vagrant Manager is an status bar menu app that lets you manage all of your vagrant machines from one central location.

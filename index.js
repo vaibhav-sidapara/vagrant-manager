@@ -26,7 +26,7 @@ app.on('ready', () =>
 	})
 	aboutUs.setMenu(null)
 	aboutUs.loadURL('file:\/\/'+__dirname+'/about.html')
-	aboutUs.webContents.openDevTools()
+	// aboutUs.webContents.openDevTools()
 
 	aboutUs.webContents.on('new-window', function(e, url) {
   		e.preventDefault()
