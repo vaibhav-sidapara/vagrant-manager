@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="/assets/logo/logo.gif" alt="Vagrant Manager" width="200"></a>
+  <img src="/assets/logo/logo.gif" alt="Vagrant Manager"></a>
   <br>
   Vagrant Manager
   <br>
