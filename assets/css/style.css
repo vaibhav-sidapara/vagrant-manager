@@ -17,7 +17,7 @@ video {
 	height: 100%;
 	z-index: -100;
 	/*transform: translateX(-50%) translateY(-50%);*/
-	background: url('assets/images/background.jpg') no-repeat;
+	background: url('../images/background.jpg') no-repeat;
 	background-size: cover;
 }
 .about {
