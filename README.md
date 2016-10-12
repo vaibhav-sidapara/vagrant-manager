@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="/assets/logo/logo.gif" alt="Vagrant Manager" width="400px">
+    <img src="/assets/images/logo.gif" alt="Vagrant Manager" width="400px">
     <br>
     Vagrant Manager
 </h1>
@@ -8,6 +8,9 @@ Vagrant Manager is an status bar menu app that lets you manage all of your vagra
 
 A menubar/taskbar App based on <a href="http://electron.atom.io" target="_blank">Electron</a>.
 
+<h1 align="center">
+    <img src="/assets/images/demo.gif" alt="Vagrant Manager Demo">
+</h1>
 
 ## Download
 
@@ -33,3 +36,7 @@ $> npm install && npm start
 >The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 >THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+___
+*Inspired by [Vagrant Manager for OS X](http://vagrantmanager.com/)*
