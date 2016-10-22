@@ -1,16 +1,18 @@
 'use strict';
-const {app, Menu, Tray, BrowserWindow} = require('electron')
-const command = require('shelljs/global')
-const jquery = require('jquery')
-const fs = require('fs')
-const path = require('path')
-const openLink = require('electron').shell
+const {app, Menu, Tray, BrowserWindow} = require('electron');
+const command = require('shelljs/global');
+const jquery = require('jquery');
+const fs = require('fs');
+const path = require('path');
+const openLink = require('electron').shell;
 
-const trayActive = 'assets/logo/trayIcon.png'
-const trayWait = 'assets/logo/trayIconWait.png'
+// const terminal = require('child_process');
 
-let tray = null
-let aboutUs = null
+const trayActive = 'assets/logo/trayIcon.png';
+const trayWait = 'assets/logo/trayIconWait.png';
+
+let tray = null;
+let aboutUs = null;
 
 app.on('ready', () => 
 {
@@ -56,7 +58,7 @@ app.on('ready', () =>
 				return callback(box)
 			})
 		})
-	}
+	};
 
 	var vagrantManager = function(event) 
 	{
@@ -83,62 +85,65 @@ app.on('ready', () =>
 					icon: __dirname+"/assets/logo/"+box[index]['state']+".png",
 					submenu: [
 					{
-						label: "Vagrant Up",
+						label: "Vagrant ssh",
+						id: box[index]['path'],
+						click: function(menuItem) 
+							{
+								openTermWithCmd(menuItem)
+							}
+					},
+					{
+						type: "separator"
+					},
+					{
+						label: "Commands",
 						submenu: [
 						{
 							label: "Up",
+							icon: __dirname+"/assets/logo/running.png",
 							sublabel: index,
 							id: box[index]['path'],
 							click: function(menuItem) 
 							{
 								runShell(contextMenu, menuItem, "vagrant up")
 							}
-						}]
-					},
-					{
-						label: "Vagrant Suspend",
-						submenu: [
+						},
 						{
 							label: "Suspend",
+							icon: __dirname+"/assets/logo/saved.png",
 							sublabel: index,
 							id: box[index]['path'],
 							click: function(menuItem) 
 							{
 								runShell(contextMenu, menuItem, "vagrant suspend")
 							}
-						}]
-					},
-					{
-						label: "Vagrant Resume",
-						submenu: [
+						},
+						{
+							type: "separator"
+						},
 						{
 							label: "Resume",
+							icon: __dirname+"/assets/logo/running.png",
 							sublabel: index,
 							id: box[index]['path'],
 							click: function(menuItem) 
 							{
 								runShell(contextMenu, menuItem, "vagrant resume")
 							}
-						}]
-					},
-					{
-						label: "Vagrant Halt",
-						submenu: [
+						},
 						{
 							label: "Halt",
+							icon: __dirname+"/assets/logo/poweroff.png",
 							sublabel: index,
 							id: box[index]['path'],
 							click: function(menuItem) 
 							{
 								runShell(contextMenu, menuItem, "vagrant halt")								
 							}
-						}]
-					},
-					{
-						label: "Vagrant Destroy",
-						submenu: [
+						},
 						{
 							label: "Destroy",
+							icon: __dirname+"/assets/logo/poweroff.png",
 							sublabel: index,
 							id: box[index]['path'],
 							click: function(menuItem) 
@@ -188,7 +193,7 @@ app.on('ready', () =>
 			tray.setToolTip('Vagrant Manager')
 	  		tray.setContextMenu(contextMenu)
 		})
-	}
+	};
 
 	let runShell = function(contextMenu, menuItem, command)
 	{
@@ -206,7 +211,13 @@ app.on('ready', () =>
 
 			vagrantManager()
 		})
-	}
+	};
+
+	let openTermWithCmd = function(menuItem){
+		//Open terminal in that folder
+		console.log("TODO :P");
+		//terminal.exec('x-terminal-emulator');
+	};
 
 	// Run
 	vagrantManager()
