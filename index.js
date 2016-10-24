@@ -81,7 +81,7 @@ app.on('ready', () =>
 			for(var index in box) {
 				menu.push(
 				{	
-					label: box[index]['name'],
+					label: box[index]['path'],
 					icon: __dirname+"/assets/logo/"+box[index]['state']+".png",
 					submenu: [
 					{
@@ -90,7 +90,8 @@ app.on('ready', () =>
 						click: function(menuItem) 
 							{
 								openTermWithCmd(menuItem)
-							}
+							},
+						enabled: false
 					},
 					{
 						type: "separator"
@@ -154,6 +155,10 @@ app.on('ready', () =>
 					},
 					{
 						type: "separator"
+					},
+					{
+						label : "Box: "+box[index]['name'],
+						enabled: false
 					},
 					{
 						label : "Provider: "+box[index]['provider'],
