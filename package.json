@@ -7,7 +7,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "install-app-deps",
-    "start": "electron ./app --enable-logging --remote-debugging-port=9222",
+    "start": "electron index.js --enable-logging --remote-debugging-port=9222",
     "dev": "NODE_ENV='development' npm run start",
     "dist": "build -mwl --x64 --ia32",
     "prerelease:osx": "rimraf release/osx && mkdirp release/osx",
@@ -41,8 +41,16 @@
     },      
     "win": {
         "prune": "true",
-        "icon": "http://eatodo.s3.amazonaws.com/icon.ico"
+        "icon": "build/icon.ico"
     },
+    "linux": {
+     "prune": "true",    
+     "icon": "build/icons/512x512.png",    
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }    
   },
   "repository": {
     "type": "git",
@@ -65,6 +73,11 @@
   },
   "devDependencies": {
     "electron": "^1.6.7",
-    "electron-builder": "^10.5.0"
-  }
+    "electron-builder": "^10.5.0",
+    "copyfiles": "~1.0.0",
+    "live-reload": "~1.1.0",
+    "mkdirp": "~0.5.1",
+    "npm-run-all": "~2.3.0",
+    "rimraf": "~2.5.3"
+  }      
 }
