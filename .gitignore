@@ -2,7 +2,6 @@
 .tags*
 /assets/logo/VMLogoGif/
 /.idea/
-/build/
 /dist/
 /external_binaries/
 /out/

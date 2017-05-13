@@ -1,25 +1,70 @@
 {
   "name": "vagrant-manager",
-  "version": "1.0.0",
+  "productName": "Vagrant Manager",
+  "companyName": "Absalom Media",
+  "version": "1.2.0",
   "description": "Manage your vagrant machines in one place with Vagrant Manager",
   "main": "index.js",
   "scripts": {
-    "start": "electron index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "install-app-deps",
+    "start": "electron ./app --enable-logging --remote-debugging-port=9222",
+    "dev": "NODE_ENV='development' npm run start",
+    "dist": "build -mwl --x64 --ia32",
+    "prerelease:osx": "rimraf release/osx && mkdirp release/osx",
+    "release:osx": "copyfiles -f dist/mac/*.{dmg,zip} release/osx && PACKAGE_VERSION=$(cat app/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && echo $PACKAGE_VERSION >> ./release/osx/VERSION",
+    "prerelease:win32": "rimraf release/win32 && mkdirp release/win32",
+    "release:win32": "copyfiles -f dist/win-ia32/{RELEASES,*.nupkg,*.exe} release/win32",
+    "prerelease:win64": "rimraf release/win64 && mkdirp release/win64",
+    "release:win64": "copyfiles -f dist/win/{RELEASES,*.nupkg,*.exe} release/win64",
+    "release": "run-p release:*"
+  },
+  "build": {
+    "appId": "com.electron.vagrant-manager",
+    "dmg": {
+      "title": "Vagrant Manager",
+      "icon": "build/icon.icns",
+      "icon-size": 128,
+      "prune": "true",          
+      "contents": [
+        {
+          "x": 355,
+          "y": 125,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 155,
+          "y": 125,
+          "type": "file"
+        }
+      ]
+    },      
+    "win": {
+        "prune": "true",
+        "icon": "http://eatodo.s3.amazonaws.com/icon.ico"
+    },
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/absalomedia/vagrant-manager"
   },
   "keywords": [
     "Vagrant",
     "Manager"
   ],
   "author": "Vaibhav Sidapara",
+  "contributors": [
+    "Andrii Kostetskyi <kostyandrew@gmail.com>",
+    "Lawrence Meckan <media@absalom.biz>"
+  ],
   "license": "MIT",
   "dependencies": {
     "jquery": "^3.1.1",
+    "shell-path": "^2.1.0",
     "shelljs": "^0.7.4"
   },
   "devDependencies": {
-    "electron-packager": "^8.0.0",
-    "electron-prebuilt": "1.4.1",
-    "shelljs": "^0.7.4"
+    "electron": "^1.6.7",
+    "electron-builder": "^10.5.0"
   }
 }
