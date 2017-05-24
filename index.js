@@ -1,11 +1,13 @@
 'use strict';
-const {app, Menu, Tray, BrowserWindow, nativeImage, dialog} = require('electron')
-const command = require('shelljs/global')
-const jquery = require('jquery')
+const {app, Menu, Tray, BrowserWindow, nativeImage, dialog} = require('electron');
+const command = require('shelljs/global');
+const jquery = require('jquery');
 const shellPath = require('shell-path');
-const fs = require('fs')
-const path = require('path')
-const openLink = require('electron').shell
+const fs = require('fs');
+const path = require('path');
+var keychain = require('keychain');
+const username = require('username');
+const openLink = require('electron').shell;
 
 process.env.PATH = shellPath.sync();
 
