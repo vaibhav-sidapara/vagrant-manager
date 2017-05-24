@@ -53,12 +53,12 @@ app.on('ready', () =>
 
     aboutUs.on('close', function (e)
     {
-        e.preventDefault()
-        aboutUs.hide()
+        e.preventDefault();
+        aboutUs.hide();
         if(process.platform === 'darwin') {
             app.dock.hide();
         }
-        aboutUs.removeAllListeners('close')
+        aboutUs.removeAllListeners('close');
     })
 
     aboutUs.on('show', function ()
@@ -73,8 +73,8 @@ app.on('ready', () =>
 	// aboutUs.webContents.openDevTools()
 
 	aboutUs.webContents.on('new-window', function(e, url) {
-  		e.preventDefault()
-  		openLink.openExternal(url)
+  		e.preventDefault();
+  		openLink.openExternal(url);
 	})
 
 	function boxDetails(callback)
@@ -117,7 +117,7 @@ app.on('ready', () =>
 				label: "Refresh",
 				click: function(menuItem)
 				{
-					vagrantManager()
+					vagrantManager();
 				}
 			},
 			{
@@ -235,11 +235,11 @@ app.on('ready', () =>
 
 	let runShell = function(contextMenu, menuItem, command)
 	{
-		tray.setImage(trayWait)
-		contextMenu.items[0].enabled = false
-		var parentID = +menuItem.box + 2
-		contextMenu.items[parentID].enabled = false
-		tray.setContextMenu(contextMenu)
+		tray.setImage(trayWait);
+		contextMenu.items[0].enabled = false;
+		var parentID = +menuItem.box + 2;
+		contextMenu.items[parentID].enabled = false;
+		tray.setContextMenu(contextMenu);
         let shellCommand = new exec('cd ' + menuItem.id + ' && '+ command, function(code, stdout, stderr)
 		{
 			if(code > 0) {
@@ -251,15 +251,15 @@ app.on('ready', () =>
                 });
 			}
 
-            console.log('Exit code:', code)
-			console.log('Program output:', stdout)
-			console.log('Program stderr:', stderr)
+            console.log('Exit code:', code);
+			console.log('Program output:', stdout);
+			console.log('Program stderr:', stderr);
 
-			vagrantManager()
+			vagrantManager();
 		})
 	}
 
 	// Run
-	vagrantManager()
+	vagrantManager();
 
 })
