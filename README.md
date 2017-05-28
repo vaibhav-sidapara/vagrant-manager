@@ -14,6 +14,8 @@ A menubar/taskbar App based on <a href="http://electron.atom.io" target="_blank"
 
 ## Download
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6e3bb668722444d8a6bf8bf5af44b53)](https://www.codacy.com/app/media/vagrant-manager?utm_source=github.com&utm_medium=referral&utm_content=absalomedia/vagrant-manager&utm_campaign=badger)
+
 Download the portable version of Vagrant Manager for Linux from [here](https://github.com/vaibhav-sidapara/vagrant-manager/releases/latest).
 
 Coming Soon for Windows and MacOS.
