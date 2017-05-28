@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 const {app, Menu, Tray, BrowserWindow, nativeImage, dialog} = require('electron')
 const command = require('shelljs/global')
 const jquery = require('jquery')
@@ -15,9 +15,9 @@ function getIcon(path_icon) {
     return nativeImage.createFromPath(path_icon).resize({width: 16})
 }
 
-const trayActive = getIcon(path.join(__dirname,'assets/logo/trayIcon.png'));
-const trayWait = getIcon(path.join(__dirname,'assets/logo/trayIconWait.png'));
-const icon = path.join(__dirname,'/assets/logo/windowIcon.png');
+const trayActive = getIcon(path.join(__dirname,'assets/logo/trayIcon.png'))
+const trayWait = getIcon(path.join(__dirname,'assets/logo/trayIconWait.png'))
+const icon = path.join(__dirname,'/assets/logo/windowIcon.png')
 
 if(process.platform === 'darwin') {
     app.dock.hide()
@@ -58,7 +58,7 @@ app.on('ready', () =>
         if(process.platform === 'darwin') {
             app.dock.hide()
         }
-        aboutUs.removeAllListeners('close');
+        aboutUs.removeAllListeners('close')
     })
 
     aboutUs.on('show', function ()
@@ -73,14 +73,14 @@ app.on('ready', () =>
 	// aboutUs.webContents.openDevTools()
 
 	aboutUs.webContents.on('new-window', function(e, url) {
-  		e.preventDefault();
-  		openLink.openExternal(url);
+  		e.preventDefault()
+  		openLink.openExternal(url)
 	})
 
 	function boxDetails(callback)
 	{
         function getUserHome() {
-            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']
         }
 
 		var box = []
@@ -89,10 +89,10 @@ app.on('ready', () =>
 			if (err) throw err
 			var jsonData = JSON.parse(data)
 			for(var index in jsonData.machines) {
-				var short_path = jsonData.machines[index]['vagrantfile_path'];
+				var short_path = jsonData.machines[index]['vagrantfile_path']
 				short_path = short_path.split('/').reverse().filter((v, i) => {
 					return i < 2
-				}).reverse().join('/');
+				}).reverse().join('/')
 				box.push({
 					'short_path': short_path,
 					'path' 		: jsonData.machines[index]['vagrantfile_path'],
@@ -103,7 +103,7 @@ app.on('ready', () =>
 			}
 
 			return callback(box)
-		});
+		})
 	}
 
 	var vagrantManager = function(event)
@@ -128,7 +128,7 @@ app.on('ready', () =>
 				menu.push(
 				{
 					label: box[index]['short_path'],
-                    icon: getIcon(path.join(__dirname,"/assets/logo/"+box[index]['state']+".png")),
+                    icon: getIcon(path.join(__dirname,'/assets/logo/'+box[index]['state']+'.png')),
 					submenu: [
 					{
 						label: 'Up',
@@ -214,7 +214,7 @@ app.on('ready', () =>
 				label: 'About',
 				click: function (menuItem)
 				{
-					aboutUs.show();
+					aboutUs.show()
 				}
 			},
 			{
@@ -248,7 +248,7 @@ app.on('ready', () =>
                     buttons: ['Ok'],
                     message: 'Code ' + code,
                     detail : stderr
-                });
+                })
 			}
 
             console.log('Exit code:', code)
