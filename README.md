@@ -8,30 +8,29 @@ Vagrant Manager is an status bar menu app that lets you manage all of your vagra
 
 A menubar/taskbar App based on <a href="http://electron.atom.io" target="_blank">Electron</a>.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6e3bb668722444d8a6bf8bf5af44b53)](https://www.codacy.com/app/media/vagrant-manager?utm_source=github.com&utm_medium=referral&utm_content=absalomedia/vagrant-manager&utm_campaign=badger)
 <h1 align="center">
     <img src="/assets/images/demo.gif" alt="Vagrant Manager Demo">
 </h1>
 
 ## Download
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6e3bb668722444d8a6bf8bf5af44b53)](https://www.codacy.com/app/media/vagrant-manager?utm_source=github.com&utm_medium=referral&utm_content=absalomedia/vagrant-manager&utm_campaign=badger)
+Vagrant Manager for Linux and OSX will have build artifacts once version 1.2 is released stable.
 
-Download the portable version of Vagrant Manager for Linux from [here](https://github.com/vaibhav-sidapara/vagrant-manager/releases/latest).
+The Windows edition is still under active development.
 
-Coming Soon for Windows and MacOS.
-
-## How To Use
-You can run by cloning this repo and using this command, make sure you have Node and NPM already install.
+## How To build
+You can build a release specifically for your platform by cloning this repo and using this command, make sure you have Node and NPM already installed. There are 3 distribution branches: Linux (dist:linux), OSX (dist:osx) & Windows (dist:win)
 
 ```
 $> cd PATH-TO-VAGRANT-MANAGER
-$> npm install && npm start
+$> npm run dist:<version>
 ```
 
 ### License
 >The [MIT license](https://opensource.org/licenses/MIT) (MIT)
 >
->Copyright (c) [Vaibhav Sidapara](mailto:vaibhav.sidapara@gmail.com)
+>Copyright (c) [Vaibhav Sidapara](mailto:vaibhav.sidapara@gmail.com) & Lawrence Meckan 
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
