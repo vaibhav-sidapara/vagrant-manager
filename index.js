@@ -76,35 +76,123 @@ app.on('ready', () =>
   		e.preventDefault()
   		openLink.openExternal(url)
 	})
+	function getUserHome() {
+            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']
+    }	
+
+
+	function boxMachine(machine, index,box) {
+				var short_path = machine[index]['vagrantfile_path']
+				short_path = short_path.split('/').reverse().filter((v, i) => {
+					return i < 2
+				}).reverse().join('/')
+				box.push({
+					'short_path': short_path,
+					'path' 		: machine[index]['vagrantfile_path'],
+					'state' 	: machine[index]['state'],
+					'name' 		: machine[index]['extra_data']['box']['name'],
+					'provider'	: machine[index]['extra_data']['box']['provider'],
+				})
+			return box
+	}
 
 	function boxDetails(callback)
 	{
-        function getUserHome() {
-            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']
-        }
-
 		var box = []
 		fs.readFile(getUserHome()+'/.vagrant.d/data/machine-index/index', 'utf8', function (err, data)
 		{
 			if (err) throw err
 			var jsonData = JSON.parse(data)
 			for(var index in jsonData.machines) {
-				var short_path = jsonData.machines[index]['vagrantfile_path']
-				short_path = short_path.split('/').reverse().filter((v, i) => {
-					return i < 2
-				}).reverse().join('/')
-				box.push({
-					'short_path': short_path,
-					'path' 		: jsonData.machines[index]['vagrantfile_path'],
-					'state' 	: jsonData.machines[index]['state'],
-					'name' 		: jsonData.machines[index]['extra_data']['box']['name'],
-					'provider'	: jsonData.machines[index]['extra_data']['box']['provider'],
-				})
+				box = boxMachine(jsonData.machines,index,box)
 			}
 
 			return callback(box)
 		})
 	}
+
+	function pushSep(menu) {
+		menu.push(
+			{
+				type: 'separator'
+			}
+		)
+		return menu
+	} 
+
+	function subMenu(menu,labelText,command,box,index) {
+		menu.push(
+				{
+						label: labelText,
+						box: index,
+						id: box[index]['path'],
+						click: function(menuItem)
+						{
+							runShell(contextMenu, menuItem, 'vagrant '+command+'')
+						}
+				}
+		)
+		return menu
+	}
+
+	function buildSub(box,index) {
+		menu = []
+		menu = subMenu(menu,'Up','up',box,index)
+		menu = subMenu(menu,'Suspend','suspend',box,index)
+		menu = subMenu(menu,'Resume','resume',box,index)
+		menu = subMenu(menu,'Halt','halt',box,index)
+		menu = subDestroy(menu,box,index)
+		menu = pushSep(menu,box,index)
+		menu = boxStatus(menu,box,index)
+		return menu
+	}
+
+     function getDialog() {
+        dialog.showMessageBox({
+			type: 'warning',
+            buttons: ['Yes', 'No'],
+            message: 'Are you sure to destroy this vagrant instance?',
+            cancelId: 1,
+            defaultId: 1
+            }, function(response) {
+            	if(response === 0) {
+                    runShell(contextMenu, menuItem, 'vagrant destroy -f')
+                    }
+            })
+        }
+		
+	function subDestroy(menu,box,index) {
+			menu.push(				
+					{
+                        label: 'Destroy',
+                        box: index,
+                        id: box[index]['path'],
+                        click: function(menuItem)
+                        {
+                            getDialog()
+                        }
+					})
+			return menu
+	}
+
+	function boxStatus(menu,box,index) {
+			menu.push(
+                    {
+                        label : 'Box: '+box[index]['name'],
+                        enabled: false
+                    },
+					{
+						label : 'Provider: '+box[index]['provider'],
+						enabled: false
+					},
+					{
+						label: 'Status: '+box[index]['state'],
+						enabled: false
+					}
+			)
+			return menu
+	}
+
 
 	var vagrantManager = function(event)
 	{
@@ -119,97 +207,20 @@ app.on('ready', () =>
 				{
 					vagrantManager()
 				}
-			},
-			{
-				type: 'separator'
 			}]
+
+			menu = pushSep(menu)
 
 			for(var index in box) {
 				menu.push(
 				{
 					label: box[index]['short_path'],
                     icon: getIcon(path.join(__dirname,'/assets/logo/'+box[index]['state']+'.png')),
-					submenu: [
-					{
-						label: 'Up',
-						box: index,
-						id: box[index]['path'],
-						click: function(menuItem)
-						{
-							runShell(contextMenu, menuItem, 'vagrant up')
-						}
-					},
-					{
-						label: 'Suspend',
-						box: index,
-						id: box[index]['path'],
-						click: function(menuItem)
-						{
-							runShell(contextMenu, menuItem, 'vagrant suspend')
-						}
-					},
-					{
-						label: 'Resume',
-						box: index,
-						id: box[index]['path'],
-						click: function(menuItem)
-						{
-							runShell(contextMenu, menuItem, 'vagrant resume')
-						}
-					},
-					{
-                        label: 'Halt',
-                        box: index,
-                        id: box[index]['path'],
-                        click: function(menuItem)
-                        {
-                            runShell(contextMenu, menuItem, 'vagrant halt')
-                        }
-					},
-					{
-                        label: 'Destroy',
-                        box: index,
-                        id: box[index]['path'],
-                        click: function(menuItem)
-                        {
-                            function getDialog() {
-                                dialog.showMessageBox({
-                                    type: 'warning',
-                                    buttons: ['Yes', 'No'],
-                                    message: 'Are you sure to destroy this vagrant instance?',
-                                    cancelId: 1,
-                                    defaultId: 1
-                                }, function(response) {
-                                    if(response === 0) {
-                                        runShell(contextMenu, menuItem, 'vagrant destroy -f')
-                                    }
-                                })
-                            }
-                            getDialog()
-                        }
-					},
-					{
-						type: 'separator'
-					},
-                    {
-                        label : 'Box: '+box[index]['name'],
-                        enabled: false
-                    },
-					{
-						label : 'Provider: '+box[index]['provider'],
-						enabled: false
-					},
-					{
-						label: 'Status: '+box[index]['state'],
-						enabled: false
-					}
-					]
+					submenu: buildSub(box,index)
 				})
 			}
+			menu = pushSep(menu)
 			menu.push(
-			{
-				type: 'separator'
-			},
 			{
 				label: 'About',
 				click: function (menuItem)
