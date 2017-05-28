@@ -1,15 +1,15 @@
 'use strict';
-const {app, Menu, Tray, BrowserWindow, nativeImage, dialog} = require('electron');
-const command = require('shelljs/global');
-const jquery = require('jquery');
-const shellPath = require('shell-path');
-const fs = require('fs');
-const path = require('path');
-var keychain = require('keychain');
-const username = require('username');
-const openLink = require('electron').shell;
+const {app, Menu, Tray, BrowserWindow, nativeImage, dialog} = require('electron')
+const command = require('shelljs/global')
+const jquery = require('jquery')
+const shellPath = require('shell-path')
+const fs = require('fs')
+const path = require('path')
+var keychain = require('keychain')
+const username = require('username')
+const openLink = require('electron').shell
 
-process.env.PATH = shellPath.sync();
+process.env.PATH = shellPath.sync()
 
 function getIcon(path_icon) {
     return nativeImage.createFromPath(path_icon).resize({width: 16})
@@ -20,7 +20,7 @@ const trayWait = getIcon(path.join(__dirname,'assets/logo/trayIconWait.png'));
 const icon = path.join(__dirname,'/assets/logo/windowIcon.png');
 
 if(process.platform === 'darwin') {
-    app.dock.hide();
+    app.dock.hide()
 }
 
 let tray = null
@@ -53,10 +53,10 @@ app.on('ready', () =>
 
     aboutUs.on('close', function (e)
     {
-        e.preventDefault();
-        aboutUs.hide();
+        e.preventDefault()
+        aboutUs.hide()
         if(process.platform === 'darwin') {
-            app.dock.hide();
+            app.dock.hide()
         }
         aboutUs.removeAllListeners('close');
     })
@@ -64,7 +64,7 @@ app.on('ready', () =>
     aboutUs.on('show', function ()
     {
         if(process.platform === 'darwin') {
-            app.dock.show();
+            app.dock.show()
         }
     })
 
@@ -91,7 +91,7 @@ app.on('ready', () =>
 			for(var index in jsonData.machines) {
 				var short_path = jsonData.machines[index]['vagrantfile_path'];
 				short_path = short_path.split('/').reverse().filter((v, i) => {
-					return i < 2;
+					return i < 2
 				}).reverse().join('/');
 				box.push({
 					'short_path': short_path,
@@ -114,14 +114,14 @@ app.on('ready', () =>
 		{
 			var menu = [
 			{
-				label: "Refresh",
+				label: 'Refresh',
 				click: function(menuItem)
 				{
-					vagrantManager();
+					vagrantManager()
 				}
 			},
 			{
-				type: "separator"
+				type: 'separator'
 			}]
 
 			for(var index in box) {
@@ -131,43 +131,43 @@ app.on('ready', () =>
                     icon: getIcon(path.join(__dirname,"/assets/logo/"+box[index]['state']+".png")),
 					submenu: [
 					{
-						label: "Up",
+						label: 'Up',
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, "vagrant up")
+							runShell(contextMenu, menuItem, 'vagrant up')
 						}
 					},
 					{
-						label: "Suspend",
+						label: 'Suspend',
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, "vagrant suspend")
+							runShell(contextMenu, menuItem, 'vagrant suspend')
 						}
 					},
 					{
-						label: "Resume",
+						label: 'Resume',
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, "vagrant resume")
+							runShell(contextMenu, menuItem, 'vagrant resume')
 						}
 					},
 					{
-                        label: "Halt",
+                        label: 'Halt',
                         box: index,
                         id: box[index]['path'],
                         click: function(menuItem)
                         {
-                            runShell(contextMenu, menuItem, "vagrant halt")
+                            runShell(contextMenu, menuItem, 'vagrant halt')
                         }
 					},
 					{
-                        label: "Destroy",
+                        label: 'Destroy',
                         box: index,
                         id: box[index]['path'],
                         click: function(menuItem)
@@ -181,26 +181,26 @@ app.on('ready', () =>
                                     defaultId: 1
                                 }, function(response) {
                                     if(response === 0) {
-                                        runShell(contextMenu, menuItem, "vagrant destroy -f")
+                                        runShell(contextMenu, menuItem, 'vagrant destroy -f')
                                     }
-                                });
+                                })
                             }
-                            getDialog();
+                            getDialog()
                         }
 					},
 					{
-						type: "separator"
+						type: 'separator'
 					},
                     {
-                        label : "Box: "+box[index]['name'],
+                        label : 'Box: '+box[index]['name'],
                         enabled: false
                     },
 					{
-						label : "Provider: "+box[index]['provider'],
+						label : 'Provider: '+box[index]['provider'],
 						enabled: false
 					},
 					{
-						label: "Status: "+box[index]['state'],
+						label: 'Status: '+box[index]['state'],
 						enabled: false
 					}
 					]
@@ -208,7 +208,7 @@ app.on('ready', () =>
 			}
 			menu.push(
 			{
-				type: "separator"
+				type: 'separator'
 			},
 			{
 				label: 'About',
@@ -218,12 +218,12 @@ app.on('ready', () =>
 				}
 			},
 			{
-				label: "Quit",
+				label: 'Quit',
                 click: function (menuItem)
                 {
-                    tray.destroy();
-                    aboutUs.destroy();
-                    app.quit();
+                    tray.destroy()
+                    aboutUs.destroy()
+                    app.quit()
                 }
 			})
 
@@ -235,11 +235,11 @@ app.on('ready', () =>
 
 	let runShell = function(contextMenu, menuItem, command)
 	{
-		tray.setImage(trayWait);
-		contextMenu.items[0].enabled = false;
-		var parentID = +menuItem.box + 2;
-		contextMenu.items[parentID].enabled = false;
-		tray.setContextMenu(contextMenu);
+		tray.setImage(trayWait)
+		contextMenu.items[0].enabled = false
+		var parentID = +menuItem.box + 2
+		contextMenu.items[parentID].enabled = false
+		tray.setContextMenu(contextMenu)
         let shellCommand = new exec('cd ' + menuItem.id + ' && '+ command, function(code, stdout, stderr)
 		{
 			if(code > 0) {
@@ -251,15 +251,15 @@ app.on('ready', () =>
                 });
 			}
 
-            console.log('Exit code:', code);
-			console.log('Program output:', stdout);
-			console.log('Program stderr:', stderr);
+            console.log('Exit code:', code)
+			console.log('Program output:', stdout)
+			console.log('Program stderr:', stderr)
 
-			vagrantManager();
+			vagrantManager()
 		})
 	}
 
 	// Run
-	vagrantManager();
+	vagrantManager()
 
 })
