@@ -136,7 +136,7 @@ app.on('ready', () =>
 	}
 
 	function buildSub(box,index) {
-		menu = []
+		var menu = []
 		menu = subMenu(menu,'Up','up',box,index)
 		menu = subMenu(menu,'Suspend','suspend',box,index)
 		menu = subMenu(menu,'Resume','resume',box,index)
