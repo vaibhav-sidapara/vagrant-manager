@@ -33,7 +33,7 @@ addons:
       - xvfb
 
 install:
-  - nvm install 6
+  - nvm install 7
   - npm install electron-builder@next
   - npm install
   - export DISPLAY=':99.0'
