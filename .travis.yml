@@ -9,9 +9,11 @@ matrix:
     - os: linux
       env: CC=clang CXX=clang++ npm_config_clang=1
       compiler: clang
-
+notifications:		 
+    on_success: change
+    on_failure: never
 node_js:
-  - 6
+  - 7
 
 cache:
   directories:
