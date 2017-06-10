@@ -5,7 +5,6 @@ const jquery = require('jquery')
 const shellPath = require('shell-path')
 const fs = require('fs')
 const path = require('path')
-var keychain = require('keychain')
 const username = require('username')
 const openLink = require('electron').shell
 
@@ -84,7 +83,9 @@ app.on('ready', () =>
         }
 
 		var box = []
-		fs.readFile(getUserHome()+'/.vagrant.d/data/machine-index/index', 'utf8', function (err, data)
+		var machineIndex = '/.vagrant.d/data/machine-index/index'
+
+		fs.readFile(getUserHome()+machineIndex, 'utf8', function (err, data)
 		{
 			if (err) throw err
 			var jsonData = JSON.parse(data)
@@ -106,10 +107,34 @@ app.on('ready', () =>
 		})
 	}
 
+function boxOptions(index,note,box,command,contextMenu)
+	{
+		var text = 	{
+						label: note,
+						box: index,
+						id: box[index]['path'],
+						click: function(menuItem)
+						{
+							runShell(contextMenu, menuItem, 'vagrant '+command+'')
+						}
+					}
+		return text
+	}
+
+	function boxStatus(index,note,box,value) 
+	{
+        var text =   {
+                        label : note+': '+box[index][value],
+                        enabled: false
+					}
+		return text
+	}
+
 	var vagrantManager = function(event)
 	{
 		tray.setImage(trayActive)
 
+		var sep = {type: 'separator'}
 		boxDetails( function(box)
 		{
 			var menu = [
@@ -119,11 +144,8 @@ app.on('ready', () =>
 				{
 					vagrantManager()
 				}
-			},
-			{
-				type: 'separator'
 			}]
-
+			menu.push(sep)
 			for(var index in box) {
 				menu.push(
 				{
@@ -158,14 +180,14 @@ app.on('ready', () =>
 						}
 					},
 					{
-                        label: 'Halt',
-                        box: index,
-                        id: box[index]['path'],
-                        click: function(menuItem)
-                        {
-                            runShell(contextMenu, menuItem, 'vagrant halt')
-                        }
-					},
+						label: 'Halt',
+						box: index,
+						id: box[index]['path'],
+						click: function(menuItem)
+						{
+							runShell(contextMenu, menuItem, 'vagrant halt')
+						}
+					},										
 					{
                         label: 'Destroy',
                         box: index,
@@ -188,28 +210,15 @@ app.on('ready', () =>
                             getDialog()
                         }
 					},
-					{
-						type: 'separator'
-					},
-                    {
-                        label : 'Box: '+box[index]['name'],
-                        enabled: false
-                    },
-					{
-						label : 'Provider: '+box[index]['provider'],
-						enabled: false
-					},
-					{
-						label: 'Status: '+box[index]['state'],
-						enabled: false
-					}
+					sep,
+					boxStatus(index,'Box',box,'name'),
+					boxStatus(index,'Provider',box,'provider'),
+					boxStatus(index,'Status',box,'state')
 					]
 				})
 			}
+			menu.push(sep)
 			menu.push(
-			{
-				type: 'separator'
-			},
 			{
 				label: 'About',
 				click: function (menuItem)
