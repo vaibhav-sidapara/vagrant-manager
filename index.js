@@ -5,6 +5,8 @@ const jquery = require('jquery')
 const shellPath = require('shell-path')
 const fs = require('fs')
 const path = require('path')
+const virtualbox = require('virtualbox')
+const vbox = require('vboxmanagerjs').vboxmanager
 const username = require('username')
 const openLink = require('electron').shell
 
