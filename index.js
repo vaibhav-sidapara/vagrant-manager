@@ -109,7 +109,7 @@ app.on('ready', () =>
 		})
 	}
 
-function boxOptions(index,note,box,command,contextMenu)
+function boxOptions(note,command,box,index,contextMenu,menuItem)
 	{
 		var text = 	{
 						label: note,
@@ -130,6 +130,16 @@ function boxOptions(index,note,box,command,contextMenu)
                         enabled: false
 					}
 		return text
+	}
+
+	function errorBox(code,stderr) 
+	{
+		dialog.showMessageBox({
+			type: 'error',
+			buttons: ['Ok'],
+			message: 'Code ' + code,
+			detail : stderr
+		})
 	}
 
 	var vagrantManager = function(event)
@@ -253,18 +263,10 @@ function boxOptions(index,note,box,command,contextMenu)
 		tray.setContextMenu(contextMenu)
         let shellCommand = new exec('cd ' + menuItem.id + ' && '+ command, function(code, stdout, stderr)
 		{
-			if(code > 0) {
-                dialog.showMessageBox({
-                	type: 'error',
-                    buttons: ['Ok'],
-                    message: 'Code ' + code,
-                    detail : stderr
-                })
-			}
 
-            console.log('Exit code:', code)
-			console.log('Program output:', stdout)
-			console.log('Program stderr:', stderr)
+			if(code > 0) {
+				errorBox(code,stderr);
+			}
 
 			vagrantManager()
 		})
