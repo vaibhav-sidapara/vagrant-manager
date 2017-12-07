@@ -1,4 +1,4 @@
-'use strict';
+'use strict;'
 const {app, Menu, Tray, BrowserWindow, nativeImage, dialog} = require('electron')
 const command = require('shelljs/global')
 const jquery = require('jquery')
@@ -7,8 +7,25 @@ const fs = require('fs')
 const path = require('path')
 const openLink = require('electron').shell
 const proc = require('child_process');
+const GhReleases = require('electron-gh-releases');
+let options = {
+	repo: 'absalomedia/vagrant-manager',
+	currentVersion: app.getVersion()
+};
 
+const updater = new GhReleases(options);
 process.env.PATH = shellPath.sync();
+
+// When an update has been downloaded
+updater.on('update-downloaded', (info) => {
+	// Restart the app and install the update
+	// @TODO add warning to user that it will restart
+	updater.install();
+});
+
+// Access electrons autoUpdater
+updater.autoUpdater;
+
 
 function getIcon(path_icon) {
     return nativeImage.createFromPath(path_icon).resize({width: 16})
@@ -35,6 +52,75 @@ const shouldQuit = app.makeSingleInstance(() => {
 
 if (shouldQuit) {
     app.quit()
+}
+function boxOptions(note,box,index,path,contextMenu, action)
+{
+	var text = 	{
+					label: note,
+					box: index,
+					id: box[index]['path'],
+					click: function(menuItem)
+					{
+						runShell(contextMenu, menuItem, 'vagrant '+action)
+					}
+				}
+	return text
+}
+
+function boxStatus(index,note,box,value) 
+{
+	var text =   {
+					label : note+' : '+box[index][value],
+					enabled: false
+				}
+	return text
+}
+
+function errorBox(code,stderr) 
+{
+	dialog.showMessageBox({
+		type: 'error',
+		buttons: ['Ok'],
+		message: 'Code ' + code,
+		detail : stderr
+	})
+}
+
+function sept() 
+{
+	var text  = {
+					type: "separator"
+				}
+	return text
+}
+
+function boxDetails(callback)
+{
+	function getUserHome() {
+		return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+	}
+
+	var box = []
+	fs.readFile(getUserHome()+'/.vagrant.d/data/machine-index/index', 'utf8', function (err, data)
+	{
+		if (err) throw err
+		var jsonData = JSON.parse(data)
+		for(var index in jsonData.machines) {
+			var short_path = jsonData.machines[index]['vagrantfile_path'];
+			short_path = short_path.split('/').reverse().filter((v, i) => {
+				return i < 2;
+			}).reverse().join('/');
+			box.push({
+				'short_path': short_path,
+				'path' 		: jsonData.machines[index]['vagrantfile_path'],
+				'state' 	: jsonData.machines[index]['state'],
+				'name' 		: jsonData.machines[index]['extra_data']['box']['name'],
+				'provider'	: jsonData.machines[index]['extra_data']['box']['provider'],
+			})
+		}
+
+		return callback(box)
+	})
 }
 
 app.on('ready', () =>
@@ -75,69 +161,6 @@ app.on('ready', () =>
   		e.preventDefault()
   		openLink.openExternal(url)
 	})
-
-	function boxDetails(callback)
-	{
-        function getUserHome() {
-            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
-        }
-
-		var box = []
-		fs.readFile(getUserHome()+'/.vagrant.d/data/machine-index/index', 'utf8', function (err, data)
-		{
-			if (err) throw err
-			var jsonData = JSON.parse(data)
-			for(var index in jsonData.machines) {
-				var short_path = jsonData.machines[index]['vagrantfile_path'];
-				short_path = short_path.split('/').reverse().filter((v, i) => {
-					return i < 2;
-				}).reverse().join('/');
-				box.push({
-					'short_path': short_path,
-					'path' 		: jsonData.machines[index]['vagrantfile_path'],
-					'state' 	: jsonData.machines[index]['state'],
-					'name' 		: jsonData.machines[index]['extra_data']['box']['name'],
-					'provider'	: jsonData.machines[index]['extra_data']['box']['provider'],
-				})
-			}
-
-			return callback(box)
-		})
-	}
-
-function boxOptions(note,command,box,index,contextMenu,menuItem)
-	{
-		var text = 	{
-						label: note,
-						box: index,
-						id: box[index]['path'],
-						click: function(menuItem)
-						{
-							runShell(contextMenu, menuItem, 'vagrant '+command+'')
-						}
-					}
-		return text
-	}
-
-	function boxStatus(index,note,box,value) 
-	{
-        var text =   {
-                        label : note+': '+box[index][value],
-                        enabled: false
-					}
-		return text
-	}
-
-	function errorBox(code,stderr) 
-	{
-		dialog.showMessageBox({
-			type: 'error',
-			buttons: ['Ok'],
-			message: 'Code ' + code,
-			detail : stderr
-		})
-	}
-
 	var vagrantManager = function(event)
 	{
 		tray.setImage(trayActive)
@@ -152,9 +175,7 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
 					vagrantManager()
 				}
 			},
-			{
-				type: "separator"
-			}]
+			sept()]
 
 			for(var index in box) {
 				menu.push(
@@ -162,7 +183,7 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
 					label: box[index]['short_path'],
                     icon: getIcon(path.join(__dirname,"/assets/logo/"+box[index]['state']+".png")),
 					submenu: [
-					{
+				    {
 						label: "Up",
 						box: index,
 						id: box[index]['path'],
@@ -229,28 +250,15 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
                             getDialog();
                         }
 					},
-					{
-						type: "separator"
-					},
-                    {
-                        label : "Box: "+box[index]['name'],
-                        enabled: false
-                    },
-					{
-						label : "Provider: "+box[index]['provider'],
-						enabled: false
-					},
-					{
-						label: "Status: "+box[index]['state'],
-						enabled: false
-					}
+					sept(),
+					boxStatus(index,"Box",box,'name'),
+					boxStatus(index,"Provider",box,'provider'),
+					boxStatus(index,"Status",box,'state')
 					]
 				})
 			}
 			menu.push(
-			{
-				type: "separator"
-			},
+			sept(),
 			{
 				label: 'About',
 				click: function (menuItem)
@@ -273,7 +281,7 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
 	  		tray.setContextMenu(contextMenu)
 		})
 	}
-
+	
 	let runShell = function(contextMenu, menuItem, command)
 	{
 		tray.setImage(trayWait)
@@ -284,7 +292,6 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
 		proc.exec('cd '+ menuItem.id + ' && ' + command)
 		vagrantManager()
 	}
-
 	// Run
 	vagrantManager()
 
