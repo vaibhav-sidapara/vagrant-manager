@@ -5,9 +5,13 @@ environment:
   GH_TOKEN:
       secure: jGLpA3m6hrnikn/rOEXLnjoLxk/eUE5xQnNC/gdXhTuxbeptjw4WngZljZk6jcW2
   matrix:
+    - nodejs_version: 6
     - nodejs_version: 7
+platform:
+  - x86
+  - x64
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: Install-Product node $env:nodejs_version $env:platform
   - set CI=true
   - npm install -g npm@latest
   - set PATH=%APPDATA%\npm;%PATH%
@@ -19,4 +23,4 @@ version: '{build}'
 shallow_clone: true
 clone_depth: 1
 test_script:
-  - npm run dist:win
+  - npm run dist

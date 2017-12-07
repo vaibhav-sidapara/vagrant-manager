@@ -1,27 +1,25 @@
-'use strict'
+'use strict';
 const {app, Menu, Tray, BrowserWindow, nativeImage, dialog} = require('electron')
 const command = require('shelljs/global')
 const jquery = require('jquery')
 const shellPath = require('shell-path')
 const fs = require('fs')
 const path = require('path')
-const virtualbox = require('virtualbox')
-const vbox = require('vboxmanagerjs').vboxmanager
-const username = require('username')
 const openLink = require('electron').shell
+const proc = require('child_process');
 
-process.env.PATH = shellPath.sync()
+process.env.PATH = shellPath.sync();
 
 function getIcon(path_icon) {
     return nativeImage.createFromPath(path_icon).resize({width: 16})
 }
 
-const trayActive = getIcon(path.join(__dirname,'assets/logo/trayIcon.png'))
-const trayWait = getIcon(path.join(__dirname,'assets/logo/trayIconWait.png'))
-const icon = path.join(__dirname,'/assets/logo/windowIcon.png')
+const trayActive = getIcon(path.join(__dirname,'assets/logo/trayIcon.png'));
+const trayWait = getIcon(path.join(__dirname,'assets/logo/trayIconWait.png'));
+const icon = path.join(__dirname,'/assets/logo/windowIcon.png');
 
 if(process.platform === 'darwin') {
-    app.dock.hide()
+    app.dock.hide();
 }
 
 let tray = null
@@ -57,7 +55,7 @@ app.on('ready', () =>
         e.preventDefault()
         aboutUs.hide()
         if(process.platform === 'darwin') {
-            app.dock.hide()
+            app.dock.hide();
         }
         aboutUs.removeAllListeners('close')
     })
@@ -65,7 +63,7 @@ app.on('ready', () =>
     aboutUs.on('show', function ()
     {
         if(process.platform === 'darwin') {
-            app.dock.show()
+            app.dock.show();
         }
     })
 
@@ -81,21 +79,19 @@ app.on('ready', () =>
 	function boxDetails(callback)
 	{
         function getUserHome() {
-            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']
+            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
         }
 
 		var box = []
-		var machineIndex = '/.vagrant.d/data/machine-index/index'
-
-		fs.readFile(getUserHome()+machineIndex, 'utf8', function (err, data)
+		fs.readFile(getUserHome()+'/.vagrant.d/data/machine-index/index', 'utf8', function (err, data)
 		{
 			if (err) throw err
 			var jsonData = JSON.parse(data)
 			for(var index in jsonData.machines) {
-				var short_path = jsonData.machines[index]['vagrantfile_path']
+				var short_path = jsonData.machines[index]['vagrantfile_path'];
 				short_path = short_path.split('/').reverse().filter((v, i) => {
-					return i < 2
-				}).reverse().join('/')
+					return i < 2;
+				}).reverse().join('/');
 				box.push({
 					'short_path': short_path,
 					'path' 		: jsonData.machines[index]['vagrantfile_path'],
@@ -146,62 +142,73 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
 	{
 		tray.setImage(trayActive)
 
-		var sep = {type: 'separator'}
 		boxDetails( function(box)
 		{
 			var menu = [
 			{
-				label: 'Refresh',
+				label: "Refresh",
 				click: function(menuItem)
 				{
 					vagrantManager()
 				}
+			},
+			{
+				type: "separator"
 			}]
-			menu.push(sep)
+
 			for(var index in box) {
 				menu.push(
 				{
 					label: box[index]['short_path'],
-                    icon: getIcon(path.join(__dirname,'/assets/logo/'+box[index]['state']+'.png')),
+                    icon: getIcon(path.join(__dirname,"/assets/logo/"+box[index]['state']+".png")),
 					submenu: [
 					{
-						label: 'Up',
+						label: "Up",
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, 'vagrant up')
+							runShell(contextMenu, menuItem, "vagrant up")
 						}
 					},
 					{
-						label: 'Suspend',
+						label: "Provision",
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, 'vagrant suspend')
+							runShell(contextMenu, menuItem, "vagrant provision")
+						}
+					},					
+					{
+						label: "Suspend",
+						box: index,
+						id: box[index]['path'],
+						click: function(menuItem)
+						{
+							runShell(contextMenu, menuItem, "vagrant suspend")
 						}
 					},
 					{
-						label: 'Resume',
+						label: "Resume",
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, 'vagrant resume')
+							runShell(contextMenu, menuItem, "vagrant resume")
 						}
 					},
 					{
-						label: 'Halt',
-						box: index,
-						id: box[index]['path'],
-						click: function(menuItem)
-						{
-							runShell(contextMenu, menuItem, 'vagrant halt')
-						}
-					},										
+                        label: "Halt",
+                        box: index,
+                        id: box[index]['path'],
+                        click: function(menuItem)
+                        {
+                            runShell(contextMenu, menuItem, "vagrant halt")
+                        }
+					},
 					{
-                        label: 'Destroy',
+                        label: "Destroy",
                         box: index,
                         id: box[index]['path'],
                         click: function(menuItem)
@@ -215,36 +222,49 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
                                     defaultId: 1
                                 }, function(response) {
                                     if(response === 0) {
-                                        runShell(contextMenu, menuItem, 'vagrant destroy -f')
+                                        runShell(contextMenu, menuItem, "vagrant destroy -f")
                                     }
-                                })
+                                });
                             }
-                            getDialog()
+                            getDialog();
                         }
 					},
-					sep,
-					boxStatus(index,'Box',box,'name'),
-					boxStatus(index,'Provider',box,'provider'),
-					boxStatus(index,'Status',box,'state')
+					{
+						type: "separator"
+					},
+                    {
+                        label : "Box: "+box[index]['name'],
+                        enabled: false
+                    },
+					{
+						label : "Provider: "+box[index]['provider'],
+						enabled: false
+					},
+					{
+						label: "Status: "+box[index]['state'],
+						enabled: false
+					}
 					]
 				})
 			}
-			menu.push(sep)
 			menu.push(
+			{
+				type: "separator"
+			},
 			{
 				label: 'About',
 				click: function (menuItem)
 				{
-					aboutUs.show()
+					aboutUs.show();
 				}
 			},
 			{
-				label: 'Quit',
+				label: "Quit",
                 click: function (menuItem)
                 {
-                    tray.destroy()
-                    aboutUs.destroy()
-                    app.quit()
+                    tray.destroy();
+                    aboutUs.destroy();
+                    app.quit();
                 }
 			})
 
@@ -261,15 +281,8 @@ function boxOptions(note,command,box,index,contextMenu,menuItem)
 		var parentID = +menuItem.box + 2
 		contextMenu.items[parentID].enabled = false
 		tray.setContextMenu(contextMenu)
-        let shellCommand = new exec('cd ' + menuItem.id + ' && '+ command, function(code, stdout, stderr)
-		{
-
-			if(code > 0) {
-				errorBox(code,stderr);
-			}
-
-			vagrantManager()
-		})
+		proc.exec('cd '+ menuItem.id + ' && ' + command)
+		vagrantManager()
 	}
 
 	// Run

@@ -8,29 +8,27 @@ Vagrant Manager is an status bar menu app that lets you manage all of your vagra
 
 A menubar/taskbar App based on <a href="http://electron.atom.io" target="_blank">Electron</a>.
 
-[![Build Status](https://travis-ci.org/absalomedia/vagrant-manager.svg?branch=master)](https://travis-ci.org/absalomedia/vagrant-manager) [![Build status](https://ci.appveyor.com/api/projects/status/1ju13idwcwthuvpf/branch/master?svg=true)](https://ci.appveyor.com/project/absalomedia/vagrant-manager/branch/master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6e3bb668722444d8a6bf8bf5af44b53)](https://www.codacy.com/app/media/vagrant-manager?utm_source=github.com&utm_medium=referral&utm_content=absalomedia/vagrant-manager&utm_campaign=badger)
 <h1 align="center">
     <img src="/assets/images/demo.gif" alt="Vagrant Manager Demo">
 </h1>
 
 ## Download
 
-Vagrant Manager for Linux and OSX will have build artifacts once version 1.2 is released stable.
+Download the portable version of Vagrant Manager from [here](https://github.com/absalomedia/vagrant-manager/releases/latest).
 
-The Windows edition is still under active development.
-
-## How To build
-You can build a release specifically for your platform by cloning this repo and using this command, make sure you have Node and NPM already installed. There are 3 distribution branches: Linux (dist:linux), OSX (dist:osx) & Windows (dist:win)
+## How To Use
+You can run by cloning this repo and using this command, make sure you have Node and NPM already install.
 
 ```
 $> cd PATH-TO-VAGRANT-MANAGER
-$> npm run dist:<version>
+$> npm install && npm start
 ```
 
 ### License
 >The [MIT license](https://opensource.org/licenses/MIT) (MIT)
 >
->Copyright (c) [Vaibhav Sidapara](mailto:vaibhav.sidapara@gmail.com) & Lawrence Meckan 
+>Copyright (c) [Vaibhav Sidapara](mailto:vaibhav.sidapara@gmail.com)
+>Copyright (c) [Lawrence Meckan](http://www.absalom.biz) 
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
