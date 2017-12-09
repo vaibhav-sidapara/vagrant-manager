@@ -11,10 +11,10 @@
     "build-mac": "build -m",
     "build-win": "build -w",
     "build-linux": "build -l",
-    "build" : "build -ml",	
-    "postinstall": "install-app-deps",
+    "build" : "build -mwl",	
+    "pack": "build --dir",
+    "postinstall": "electron-builder install-app-deps",
     "dist": "npm run build && build --publish onTagOrDraft", 
-    "dist:win": "npm run build-win && build-win --publish onTagOrDraft"
   },
   "build": {
     "files": [
@@ -26,12 +26,14 @@
 	  "package.json"
     ],
     "appId": "com.electron.vagrant-manager",
-    "category": "public.app-category.developer-tools",
+    "copyright": "© 2017 Absalom Media",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
     "dmg": {
-      "title": "Vagrant Manager",
+      "title": "Vagrant Manager",  
       "icon": "build/icon.icns",
       "iconSize": 128,
-      "prune": "true",
       "contents": [
         {
           "x": 355,
@@ -47,15 +49,30 @@
       ]
     },
     "win": {
-      "prune": "true",
-      "icon": "build/icon.ico"
+      "icon": "build/icon.ico",
+      "allowElevation": "true",
+      "target": [
+        {
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+    },
+    "nsis": {
+      "perMachine": true,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     },
     "linux": {
-      "prune": "true",
       "icon": "build/icons/512x512.png",
+      "category": "Development",
+      "packageCategory": "Development",
       "target": [
         "AppImage",
-        "deb"
+        "deb",
+        "rpm"
       ]
     }
   },
@@ -79,12 +96,15 @@
   "license": "MIT",
   "dependencies": {
     "electron-gh-releases": "^2.0.4",
+    "electron-is-dev": "^0.3.0",
+    "electron-log": "^2.2.11",
+    "electron-updater": "^2.16.2",
     "jquery": "^3.1.1",
     "shell-path": "^2.1.0",
     "shelljs": "^0.7.4"
   },
   "devDependencies": {
-    "electron": "^1.7.1",
-    "electron-builder": "next"
+    "electron": "1.7.9",
+    "electron-builder": "^19.45.4"
   }
 }
