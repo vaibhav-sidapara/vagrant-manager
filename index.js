@@ -236,7 +236,16 @@ app.on('ready', () =>
 						{
 							runShell(contextMenu, menuItem, "vagrant snapshot")
 						}
-					},					
+					},
+					{
+						label: "Validate",
+						box: index,
+						id: box[index]['path'],
+						click: function(menuItem)
+						{
+							runShell(contextMenu, menuItem, "vagrant validate")
+						}
+					},										
 					{
                         label: "Destroy",
                         box: index,
