@@ -88,6 +88,6 @@
   },
   "devDependencies": {
     "electron": "^1.7.1",
-    "electron-builder": "next",
+    "electron-builder": "next"
   }
 }

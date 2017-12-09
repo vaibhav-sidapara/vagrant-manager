@@ -229,6 +229,15 @@ app.on('ready', () =>
                         }
 					},
 					{
+						label: "Snapshot",
+						box: index,
+						id: box[index]['path'],
+						click: function(menuItem)
+						{
+							runShell(contextMenu, menuItem, "vagrant snapshot")
+						}
+					},					
+					{
                         label: "Destroy",
                         box: index,
                         id: box[index]['path'],
