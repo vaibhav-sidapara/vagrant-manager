@@ -14,7 +14,7 @@
     "build" : "build -mwl",	
     "pack": "build --dir",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "npm run build && build --publish onTagOrDraft", 
+    "dist": "npm run build && build --publish onTagOrDraft" 
   },
   "build": {
     "files": [
@@ -58,7 +58,7 @@
             "ia32"
           ]
         }
-      ],
+      ]
     },
     "nsis": {
       "perMachine": true,
