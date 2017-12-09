@@ -14,7 +14,7 @@
     "build" : "build -ml",	
     "postinstall": "install-app-deps",
     "dist": "npm run build && build --publish onTagOrDraft", 
-    "dist:win": "npm run build-win && build --publish onTagOrDraft"
+    "dist:win": "npm run build-win && build-win --publish onTagOrDraft"
   },
   "build": {
     "files": [
@@ -58,9 +58,6 @@
         "deb"
       ]
     }
-  },
-  "directories": {
-    "output": "release"
   },
   "repository": {
     "type": "git",
