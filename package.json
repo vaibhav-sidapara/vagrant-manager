@@ -49,21 +49,7 @@
       ]
     },
     "win": {
-      "icon": "build/icon.ico",
-      "allowElevation": "true",
-      "target": [
-        {
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
-    },
-    "nsis": {
-      "perMachine": true,
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "icon": "build/icon.ico"
     },
     "linux": {
       "icon": "build/icons/512x512.png",
