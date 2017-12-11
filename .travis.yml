@@ -44,7 +44,9 @@ script:
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
-
+notifications:
+    on_success: change
+    on_failure: never
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
