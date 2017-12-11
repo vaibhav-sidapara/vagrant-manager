@@ -7,14 +7,16 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV='development' npm run start",
-    "start": "electron index.js",
-    "build-mac": "build -m",
-    "build-win": "build -w",
-    "build-linux": "build -l",
-    "build" : "build -mwl",	
-    "pack": "build --dir",
+    "start": "rm -rf .cache && cross-env NODE_ENV=development electron .",
+    "clean-cache": "rm -rf .cache",
+    "clean-source": "node cleaner.js \"./dist\"",
+    "build-mac": "electron-builder -m",
+    "build-win": "electron-builder -w",
+    "build-linux": "electron-builder -l",
+    "build" : "electron-builder -mwl",	
+    "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "npm run build && build --publish onTagOrDraft" 
+    "dist": "yarn build && build --publish onTagOrDraft" 
   },
   "build": {
     "files": [
@@ -82,8 +84,6 @@
   "license": "MIT",
   "dependencies": {
     "electron-gh-releases": "^2.0.4",
-    "electron-is-dev": "^0.3.0",
-    "electron-log": "^2.2.11",
     "electron-updater": "^2.16.2",
     "jquery": "^3.1.1",
     "shell-path": "^2.1.0",
@@ -91,6 +91,7 @@
   },
   "devDependencies": {
     "electron": "1.7.9",
-    "electron-builder": "^19.45.4"
+    "electron-builder": "^19.45.4",
+    "cross-env": "^5.1.0"
   }
 }
