@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug renderer process",
+            "type": "chrome",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd",
+            "runtimeArgs": [
+                "${workspaceRoot}/",
+                "--enable-logging",
+                "--remote-debugging-port=9222"
+            ],
+            "webRoot": "${workspaceRoot}/",
+            "sourceMaps": true,
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}

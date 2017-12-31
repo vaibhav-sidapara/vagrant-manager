@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title data-i18next="settings.settings"></title>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+  </head>
+  <body>
+    <div class="settings">
+      <h2 data-i18next="settings.language"></h2>
+      <div class="">
+        <select name="language" id="language"> <!--Supplement an id here instead of using 'name'-->
+          <!--Keep languages in the alphabet order-->
+          <option value="cs">Čeština</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="sk">Slovenčina</option>
+        </select>
+      </div>
+      <h2 data-i18next="settings.breaks"></h2>
+      <p>
+        <span id="breakDurationMinus" class="pointer">-</span>
+        <span id="breakDuration"></span>
+        <span id="breakDurationPlus" class="pointer">+</span>
+        <span data-i18next="settings.minutesBreakAfter"></span>
+        <span id="breakIntervalMinus" class="pointer">-</span>
+        <span id="breakInterval"></span>
+        <span id="breakIntervalPlus" class="pointer">+</span>
+        <span data-i18next="settings.microbreaks2"></span> <br/>
+        <small><span data-i18next="settings.(every"></span> <span id="realBreakInterval" ></span> <span data-i18next="settings.minutes)"></small>
+        <span class="strict">
+          <br/><span data-i18next="settings.dontLetMeSkipBreaks"></span>
+          <input type="checkbox" value="breakStrictMode" class="enable">
+        </span>
+      </p>
+      <div>
+        <div class="enabled">
+          <input type="checkbox" value="microbreak" class="enable">
+          <span data-i18next="settings.microbreaksEnabled">
+        </div>
+        <div class="enabled">
+          <input type="checkbox" value="break" class="enable">
+          <span data-i18next="settings.breaksEnabled">
+        </div>
+        <div class="next">
+          <a href="settings2.html" title="more settings">&rsaquo;</a>
+        </div>
+        <div id="defaults" class="pointer">
+
+        </div>
+      </div>
+    </div>
+    <script>
+      require('./settings.js')
+    </script>
+  </body>
+</html>

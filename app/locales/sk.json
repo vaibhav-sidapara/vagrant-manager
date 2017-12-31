@@ -1,0 +1,43 @@
+{
+  "main": {
+    "toolTipHeader": "Vagrant Manager",
+    "version": "v {{version}}",
+    "downloadLatest": "Download latest version",
+    "about": "About",
+    "aboutVM": "About | Vagrant Manager",
+    "settings": "Settings",
+    "quit": "Quit",
+    "startAtLogin": "Start at login",
+    "resetToDefaults": "Reset to defaults",
+    "areYouSure": "Are you sure?",
+    "yes": "Yes",
+    "no": "No",
+    "up": "Up",
+    "refresh": "Refresh",
+    "provision": "Provision",
+    "suspend": "Suspend",
+    "resume": "Resume",
+    "halt": "Halt",
+    "snapshot": "Snapshot",
+    "validate": "Validate",
+    "box": "Box",
+    "provider": "Provider",
+    "status": "Status" 
+  },
+   "about": {
+    "vm": "Vagrant Manager",
+    "vmApp": "Manage your vagrant machines",
+    "toLearnMoreVisit": "To learn more about all of stretchly features and about ways how you can help it, visit it's",
+    "homepage": "homepage",
+    "latestVersion": "the latest version:",
+    "checking": "checking..."
+  },
+  "settings": {
+    "settings": "Settings",
+    "language": "Language",
+    "resetToDefaults": "Reset to defaults"
+  },
+  "process": {
+    "newVersion": "New version is available!"
+  }
+}
