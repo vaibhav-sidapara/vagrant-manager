@@ -1,7 +1,7 @@
 {
   "main": {
-    "toolTipHeader": "Vagrant Manager",
-    "version": "v {{version}}",
+    "header": "Vagrant Manager",
+    "version": "V {{version}}",
     "downloadLatest": "Download latest version",
     "about": "About",
     "aboutVM": "About | Vagrant Manager",

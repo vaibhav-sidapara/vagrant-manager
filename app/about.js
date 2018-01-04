@@ -11,14 +11,14 @@ document.addEventListener('drop', event => event.preventDefault())
 
 document.getElementById('homepage').addEventListener('click', function (e) {
   e.preventDefault()
-  shell.openExternal('https://hovancik.net/stretchly')
+  shell.openExternal('https://github.com/absalomedia/vagrant-manager')
 })
 
 const updateElement = document.getElementById('update')
 
 updateElement.addEventListener('click', function (e) {
   e.preventDefault()
-  shell.openExternal('https://github.com/hovancik/stretchly/releases')
+  shell.openExternal('https://github.com/absalomedia/vagrant-manager/releases')
 })
 
 new VersionChecker()
