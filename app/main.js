@@ -268,7 +268,11 @@ function buildMenu() {
 					id: box[index]['path'],
 					click: function(menuItem)
 					{
-						runShell(contextMenu, menuItem, "vagrant provision")
+						var cmd = 'up --provision'
+						if (box[index]['status'] === 'running') {
+							cmd = 'provision'
+						} 
+						runShell(contextMenu, menuItem, "vagrant "+cmd)
 					}
 				},					
 				{
