@@ -5,8 +5,8 @@ const Settings = require('./../app/utils/settings')
 const defaultSettings = require('./../app/utils/defaultSettings')
 
 const testFileLocation = `${__dirname}/testFile`
-const testMissingFileLocation = `${__dirname}/test-missing.json`
-const testMissingFileCopyLocation = `${__dirname}/test-missing-copy.json`
+const testMissingFileLocation = `${__dirname}/missing.json`
+const testMissingFileCopyLocation = `${__dirname}/missing-copy.json`
 
 chai.should()
 
@@ -25,7 +25,6 @@ describe('Settings', () => {
     fs.writeFileSync(testMissingFileCopyLocation, testData)
     // we create copy to not worry about git changes to `test-missing.json`
     settings = new Settings(testMissingFileCopyLocation)
-    defaultSettings['microbreak'] = false
     settings.data.should.be.deep.equal(defaultSettings)
   })
 
