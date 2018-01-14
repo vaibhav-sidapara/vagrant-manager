@@ -50,3 +50,12 @@ small{
 .btn{
 	border: 0;
 }
+button {
+	color: #fff;
+    border: none;
+    outline: none;
+}
+button:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}

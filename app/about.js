@@ -1,4 +1,4 @@
-const {shell, ipcRenderer} = require('electron')
+const {shell, ipcRenderer, remote} = require('electron')
 const VersionChecker = require('./utils/versionChecker')
 const HtmlTranslate = require('./utils/htmlTranslate')
 
@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', event => {
 
 document.addEventListener('dragover', event => event.preventDefault())
 document.addEventListener('drop', event => event.preventDefault())
+
+document.getElementById('close').addEventListener('click', function (e) {
+  e.preventDefault()
+  var window = remote.getCurrentWindow();
+  window.close();
+})
+
 
 document.getElementById('homepage').addEventListener('click', function (e) {
   e.preventDefault()

@@ -11,7 +11,7 @@ const jquery = require('jquery')
 const shellPath = require('shell-path')
 const fs = require('fs')
 const path = require('path')
-const proc = require('child_process');
+const proc = require('child_process')
 process.env.PATH = shellPath.sync();
 
 function getIcon(path_icon) {

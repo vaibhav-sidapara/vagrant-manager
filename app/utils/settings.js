@@ -74,6 +74,8 @@ class Settings {
     this.data = null
     fs.unlinkSync(this.settingsFile)
   }
+
+  
 }
 
 module.exports = Settings
