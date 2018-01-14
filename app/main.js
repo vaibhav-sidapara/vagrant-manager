@@ -269,7 +269,7 @@ function buildMenu() {
 					click: function(menuItem)
 					{
 						var cmd = 'up --provision'
-						if (box[index]['status'] === 'running') {
+						if (box[index]['state'] === 'running') {
 							cmd = 'provision'
 						} 
 						runShell(contextMenu, menuItem, "vagrant "+cmd)
