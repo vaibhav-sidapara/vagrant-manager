@@ -27,6 +27,10 @@ ipcRenderer.on('renderSettings', (event, data) => {
   eventsAttached = true
 })
 
+document.getElementById('defaults').addEventListener('click', function (e) {
+  ipcRenderer.send('set-default-settings', [])
+})
+
 document.getElementById('language').addEventListener('change', function (e) {
   ipcRenderer.send('change-language', e.target.value)
   ipcRenderer.send('save-setting', 'language', e.target.value)
