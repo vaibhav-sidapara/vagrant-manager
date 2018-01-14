@@ -1,5 +1,11 @@
-'use strict;'
 const {app, Menu, Tray, BrowserWindow, ipcMain, shell, nativeImage, dialog} = require('electron')
+const i18next = require('i18next')
+const Backend = require('i18next-node-fs-backend')
+
+startI18next()
+
+const AppSettings = require('./utils/settings')
+const defaultSettings = require('./utils/defaultSettings')
 const command = require('shelljs/global')
 const jquery = require('jquery')
 const shellPath = require('shell-path')
@@ -15,12 +21,12 @@ function getIcon(path_icon) {
 const trayActive = getIcon(path.join(__dirname,'assets/logo/trayIcon.png'));
 const trayWait = getIcon(path.join(__dirname,'assets/logo/trayIconWait.png'));
 const icon = path.join(__dirname,'/assets/logo/windowIcon.png');
-const AppSettings = require(__dirname,'utils/settings')
-const defaultSettings = require(__dirname,'utils/defaultSettings')
+
 
 let aboutUs = null
 let appIcon = null
 let aboutWin = null
+let tray = null
 let settingsWin = null
 let settings
 
@@ -105,11 +111,8 @@ function startI18next () {
 	aboutWin.on('closed', () => {
 	  aboutWin = null
 	})
-  }
-
-
-}
-
+	}
+	
 function showSettingsWindow () {
   if (settingsWin) {
     settingsWin.show()
@@ -182,16 +185,6 @@ function getUserHome() {
 	return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 }
 
-function createTrayIcon () {
-  tray = new Tray(trayActive)
-  if (process.platform === 'darwin') {
-    app.dock.hide()
-  } else {
-  }
-  appIcon.setContextMenu(getTrayMenu())
-}
-
-
 function boxDetails(callback)
 {
 	var box = []
@@ -225,23 +218,15 @@ function boxDetails(callback)
 
 
 app.on('ready', loadSettings)
-app.on('ready', createTrayIcon)
-app.on('ready', startPowerMonitoring)
+app.on('ready', () =>
+{
+	tray = new Tray(trayActive)
 
-app.on('window-all-closed', () => {
-  // do nothing, so app wont get closed
-})
-
-function loadSettings () {
-	const dir = app.getPath('userData')
-	const settingsFile = `${dir}/config.json`
-	settings = new AppSettings(settingsFile)
-	i18next.changeLanguage(settings.get('language'))
-  }
-
-function getTrayMenu () {
 	var menu = []
-	tray.setImage(trayActive)
+	
+	var vagrantManager = function(event)
+	{
+  	tray.setImage(trayActive)
 
 		boxDetails( function(box)
 		{
@@ -250,15 +235,16 @@ function getTrayMenu () {
 				  label: i18next.t('main.downloadLatest'),
 				  click: function () {
 					shell.openExternal('https://github.com/absalomedia/vagrant-manager/releases')
-				  }
-			})
-			
+					}
+				})
+			}
+	
 			menu.push(
 			{
 				label: i18next.t('main.refresh'),
 				click: function(menuItem)
 				{
-					getTrayMenu()
+					vagrantManager()
 				}
 			},
 			sept())
@@ -267,7 +253,7 @@ function getTrayMenu () {
 				menu.push(
 				{
 					label: box[index]['short_path'],
-                    icon: getIcon(path.join(__dirname,"/assets/logo/"+box[index]['state']+".png")),
+          icon: getIcon(path.join(__dirname,"/assets/logo/"+box[index]['state']+".png")),
 					submenu: [
 				    {
 						label: i18next.t('main.up'),
@@ -315,21 +301,21 @@ function getTrayMenu () {
             }
 					},
 					{
-						label: i18next.t('main.snapshot'),
+						label: i18next.t('main.update'),
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, "vagrant snapshot")
+							runShell(contextMenu, menuItem, "vagrant plugin update")
 						}
 					},
 					{
-						label: i18next.t('main.validate'),
+						label: i18next.t('main.repair'),
 						box: index,
 						id: box[index]['path'],
 						click: function(menuItem)
 						{
-							runShell(contextMenu, menuItem, "vagrant validate")
+							runShell(contextMenu, menuItem, "vagrant plugin repair")
 						}
 					},										
 					{
@@ -396,14 +382,13 @@ function getTrayMenu () {
 					app.setLoginItemSettings({openAtLogin: !openAtLogin})
 				  }
 				})
-			  }
-
+			}
 
 			var contextMenu = Menu.buildFromTemplate(menu)
-			tray.setToolTip('Vagrant Manager')
+			tray.setToolTip(i18next.t('main.header'))
 	  	tray.setContextMenu(contextMenu)
-		}
-	})
+		})
+	}
 
 	let runShell = function(contextMenu, menuItem, command)
 	{
@@ -413,6 +398,63 @@ function getTrayMenu () {
 		contextMenu.items[parentID].enabled = false
 		tray.setContextMenu(contextMenu)
 		proc.exec('cd '+ menuItem.id + ' && ' + command)
-		getTrayMenu()
+		vagrantManager()
 	}
+	// Run
+	vagrantManager()
+})
+
+app.on('ready', startPowerMonitoring)
+app.on('window-all-closed', () => {
+  // do nothing, so app wont get closed
+})
+
+function loadSettings () {
+	const dir = app.getPath('userData')
+	const settingsFile = `${dir}/config.json`
+	settings = new AppSettings(settingsFile)
+	i18next.changeLanguage(settings.get('language'))
 }
+
+ipcMain.on('save-setting', function (event, key, value) {
+  settings.set(key, value)
+  settingsWin.webContents.send('renderSettings', settings.data)
+  appIcon.setContextMenu(getTrayMenu())
+})
+
+ipcMain.on('update-tray', function (event) {
+   appIcon.setContextMenu(getTrayMenu())
+})
+
+ipcMain.on('set-default-settings', function (event, data) {
+  const options = {
+    type: 'info',
+    title: i18next.t('main.resetToDefaults'),
+    message: i18next.t('main.areYouSure'),
+    buttons: [i18next.t('main.yes'), i18next.t('main.no')]
+  }
+  dialog.showMessageBox(options, function (index) {
+    if (index === 0) {
+      saveDefaultsFor(data)
+      settingsWin.webContents.send('renderSettings', settings.data)
+    }
+  })
+})
+
+ipcMain.on('send-settings', function (event) {
+  settingsWin.webContents.send('renderSettings', settings.data)
+})
+
+ipcMain.on('show-debug', function (event) {
+  const dir = app.getPath('userData')
+  const settingsFile = `${dir}/config.json`
+  aboutWin.webContents.send('debugInfo', settingsFile)
+})
+
+ipcMain.on('change-language', function (event, language) {
+  i18next.changeLanguage(language)
+  if (settingsWin) {
+    settingsWin.webContents.send('renderSettings', settings.data)
+  }
+})
+

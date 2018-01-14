@@ -18,6 +18,7 @@
     "suspend": "Suspend",
     "resume": "Resume",
     "halt": "Halt",
+    "destroy": "Destroy",
     "update": "Plugin Update",
     "repair": "Plugin Repair",
     "box": "Box",
