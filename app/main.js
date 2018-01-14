@@ -240,7 +240,7 @@ function buildMenu() {
 			label: i18next.t('main.refresh'),
 			click: function(menuItem)
 			{
-				buildMenu(tray,menu)
+				buildMenu()
 			}
 		},
 		sept())
@@ -395,7 +395,8 @@ function runShell(contextMenu, menuItem, command)
 	var parentID = +menuItem.box + 2
 	contextMenu.items[parentID].enabled = false
 	tray.setContextMenu(contextMenu)
-	proc.exec('cd '+ menuItem.id + ' && ' + command)		
+	proc.exec('cd '+ menuItem.id + ' && ' + command)
+	buildMenu()		
 }
 
 
