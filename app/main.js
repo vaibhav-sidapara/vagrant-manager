@@ -103,7 +103,8 @@ function startI18next () {
 	  width : 400,
 	  height : 600,
 	  resizable : false,
-	  fullscreen : false,
+		fullscreen : false,
+		frame: false,
 	  icon : icon,
 	  title: i18next.t('main.aboutVM', {version: app.getVersion()})
 	})
@@ -124,6 +125,7 @@ function showSettingsWindow () {
 	height : 600,
 	resizable : false,
 	fullscreen : false,
+	frame: false,
 	icon : icon,
     title: i18next.t('main.settings')
   })
