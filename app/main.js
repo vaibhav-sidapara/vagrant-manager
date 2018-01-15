@@ -1,4 +1,4 @@
-const {app, Menu, Tray, BrowserWindow, ipcMain, shell, nativeImage, dialog} = require('electron')
+const {app, Menu, Tray, BrowserWindow, ipcMain, shell, nativeImage, dialog, remote} = require('electron')
 const i18next = require('i18next')
 const Backend = require('i18next-node-fs-backend')
 
@@ -70,14 +70,14 @@ function startI18next () {
 		  console.log(err.stack)
 		}
 		if (appIcon) {
-		  appIcon.setContextMenu(getTrayMenu())
+		  buildMenu()
 		}
 	  })
   }
   
   i18next.on('languageChanged', function (lng) {
 	if (appIcon) {
-	  appIcon.setContextMenu(getTrayMenu())
+	  buildmenu()
 	}
   })
 
@@ -86,11 +86,9 @@ function startI18next () {
 	const electron = require('electron')
 	electron.powerMonitor.on('suspend', () => {
 	  console.log('The system is going to sleep')
-	  if (!isOnIndefinitePause) pauseBreaks(1)
 	})
 	electron.powerMonitor.on('resume', () => {
 	  console.log('The system is resuming')
-	  if (!isOnIndefinitePause) resumeBreaks()
 	})
   }
   function showAboutWindow () {
@@ -424,11 +422,11 @@ function loadSettings () {
 ipcMain.on('save-setting', function (event, key, value) {
   settings.set(key, value)
   settingsWin.webContents.send('renderSettings', settings.data)
-  appIcon.setContextMenu(getTrayMenu())
+  buildMenu()
 })
 
 ipcMain.on('update-tray', function (event) {
-   appIcon.setContextMenu(getTrayMenu())
+	buildMenu()
 })
 
 ipcMain.on('set-default-settings', function (event, data) {
