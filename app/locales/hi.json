@@ -1,0 +1,41 @@
+{
+  "main": {
+    "header": "आवारा प्रबंधक",
+    "version": "V {{version}}",
+    "downloadLatest": "नवीनतम संस्करण डाउनलोड करें",
+    "about": "के बारे में",
+    "aboutVM": "के बारे में | आवारा प्रबंधक",
+    "settings": "सेटिंग्स",
+    "quit": "छोड़ो",
+    "startAtLogin": "ऑटो स्टार्ट",
+    "resetToDefaults": "डिफ़ॉल्ट पर पुनः सेट करें",
+    "areYouSure": "क्या आपको यकीन है?",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "up": "अप",
+    "refresh": "ताज़ा करें",
+    "provision": "प्रावधान",
+    "suspend": "निलंबित",
+    "resume": "बायोडाटा",
+    "halt":  "हॉल्ट",
+    "destroy": "नष्ट",
+    "update": "प्लगइन अपडेट",
+    "repair": "प्लगइन मरम्मत",
+    "box": "डिब्बा",
+    "provider": "प्रदाता",
+    "status": "स्थिति" 
+  },
+   "about": {
+    "vm": "आवारा प्रबंधक",
+    "vmApp": "अपने आवारा मशीनों को प्रबंधित करें",
+    "latestVersion": "नवीनतम संस्करण:",
+    "checking":"जाँच ..."
+  },
+  "settings": {
+    "settings": "सेटिंग्स",
+    "language": "भाषा",
+    "resetToDefaults": "डिफ़ॉल्ट पर पुनः सेट करें"
+  },
+  "process": {
+    "newVersion": "नया संस्करण उपलब्ध है!"
+}

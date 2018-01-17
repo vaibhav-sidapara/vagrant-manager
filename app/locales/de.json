@@ -2,41 +2,41 @@
   "main": {
     "header": "Vagrant Manager",
     "version": "V {{version}}",
-    "downloadLatest": "Download latest",
-    "about": "About",
-    "aboutVM": "About | Vagrant Manager",
-    "settings": "Settings",
-    "quit": "Quit",
-    "startAtLogin": "Start at login",
-    "resetToDefaults": "Reset to defaults",
-    "areYouSure": "Are you sure?",
-    "yes": "Yes",
-    "no": "No",
-    "up": "Up",
-    "refresh": "Refresh",
-    "provision": "Provision",
-    "suspend": "Suspend",
-    "resume": "Resume",
+    "downloadLatest":"Lade die letzte Version herunter",
+    "about": "Über",
+    "aboutVM": "Über | Vagrant Manager",
+    "settings": "Die Einstellungen",
+    "quit": "Verlassen",
+    "startAtLogin": "Automatischer Start",
+    "resetToDefaults": "Auf Standardeinstellung zurücksetzen",
+    "areYouSure": "Bist du sicher?",
+    "yes": "Ja",
+    "no": "Nein",
+    "up": "Oben",
+    "refresh": "Aktualisierung",
+    "provision": "Bereitstellung",
+    "suspend": "Aussetzen",
+    "resume": "Fortsetzen",
     "halt": "Halt",
-    "destroy": "Destroy",
-    "update": "Plugin Update",
-    "repair": "Plugin Repair",
-    "box": "Box",
-    "provider": "Provider",
+    "destroy": "Zerstören",
+    "update": "Plugin-Aktualisierung",
+    "repair": "Plugin Reparatur",
+    "box": "Kasten",
+    "provider": "Anbieter",
     "status": "Status" 
   },
    "about": {
     "vm": "Vagrant Manager",
-    "vmApp": "Manage your vagrant machines",
-    "latestVersion": "the latest version:",
-    "checking": "checking..."
+    "vmApp": "Verwalte deine Landstreicher",
+    "latestVersion": "Die neueste version:",
+    "checking": "Überprüfung..."
   },
   "settings": {
-    "settings": "Settings",
-    "language": "Language",
-    "resetToDefaults": "Reset to defaults"
+    "settings": "Die Einstellungen",
+    "language": "Sprache",
+    "resetToDefaults":  "Auf Standardeinstellung zurücksetzen"
   },
   "process": {
-    "newVersion": "New version is available!"
+    "newVersion": "Neue Version ist verfügbar!"
   }
 }

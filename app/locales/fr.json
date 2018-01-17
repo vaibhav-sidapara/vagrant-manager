@@ -1,42 +1,42 @@
 {
   "main": {
-    "header": "Vagrant Manager",
+    "header": "Gestionnaire Vagabond",
     "version": "V {{version}}",
-    "downloadLatest": "Download latest version",
-    "about": "About",
-    "aboutVM": "About | Vagrant Manager",
-    "settings": "Settings",
-    "quit": "Quit",
-    "startAtLogin": "Start at login",
-    "resetToDefaults": "Reset to defaults",
-    "areYouSure": "Are you sure?",
-    "yes": "Yes",
-    "no": "No",
-    "up": "Up",
-    "refresh": "Refresh",
-    "provision": "Provision",
-    "suspend": "Suspend",
-    "resume": "Resume",
-    "halt": "Halt",
-    "destroy": "Destroy",
-    "update": "Plugin Update",
-    "repair": "Plugin Repair",
-    "box": "Box",
-    "provider": "Provider",
-    "status": "Status" 
+    "downloadLatest": "Télécharger la dernière version",
+    "about": "Sur",
+    "aboutVM": "Sur | Gestionnaire Vagabond",
+    "settings": "Paramètres",
+    "quit": "Quitter",
+    "startAtLogin": "Démarrage automatique",
+    "resetToDefaults": "Réinitialiser les paramètres par défaut",
+    "areYouSure": "Êtes-vous sûr?",
+    "yes": "Oui",
+    "no": "Non",
+    "up": "Au-dessus de",
+    "refresh": "Rafraîchir",
+    "provision": "Disposition",
+    "suspend": "Suspendre",
+    "resume": "Reprendre",
+    "halt": "Arrêt",
+    "destroy": "Détruire",
+    "update": "Mise à jour du plugin",
+    "repair": "Réparation de plugins",
+    "box": "Boîte",
+    "provider": "Fournisseur",
+    "status": "Statut" 
   },
    "about": {
-    "vm": "Vagrant Manager",
-    "vmApp": "Manage your vagrant machines",
-    "latestVersion": "the latest version:",
-    "checking": "checking..."
+    "vm": "Gestionnaire Vagabond",
+    "vmApp": "Gérer vos machines vagabondes",
+    "latestVersion": "la dernière version:",
+    "checking": "vérification..."
   },
   "settings": {
-    "settings": "Settings",
-    "language": "Language",
-    "resetToDefaults": "Reset to defaults"
+    "settings": "Paramètres",
+    "language": "La langue",
+    "resetToDefaults": "Réinitialiser les paramètres par défaut"
   },
   "process": {
-    "newVersion": "New version is available!"
+    "newVersion": "Nouvelle version est disponible!"
   }
 }

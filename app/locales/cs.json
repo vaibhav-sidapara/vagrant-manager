@@ -2,41 +2,41 @@
   "main": {
     "header": "Vagrant Manager",
     "version": "V {{version}}",
-    "downloadLatest": "Download latest version",
-    "about": "About",
-    "aboutVM": "About | Vagrant Manager",
-    "settings": "Settings",
-    "quit": "Quit",
-    "startAtLogin": "Start at login",
-    "resetToDefaults": "Reset to defaults",
-    "areYouSure": "Are you sure?",
-    "yes": "Yes",
-    "no": "No",
-    "up": "Up",
-    "refresh": "Refresh",
-    "provision": "Provision",
-    "suspend": "Suspend",
-    "resume": "Resume",
-    "halt": "Halt",
-    "destroy": "Destroy",
-    "update": "Plugin Update",
-    "repair": "Plugin Repair",
-    "box": "Box",
-    "provider": "Provider",
-    "status": "Status" 
+    "downloadLatest": "Stáhnout nejnovější verzi",
+    "about": "O",
+    "aboutVM": "O | Vagrant Manager",
+    "settings": "Nastavení",
+    "quit": "Přestat",
+    "startAtLogin": "Automatické spuštění",
+    "resetToDefaults": "Obnovit výchozí nastavení",
+    "areYouSure": "Jsi si jistá?",
+    "yes": "Ano",
+    "no": "Ne",
+    "up": "Nahoru",
+    "refresh": "Obnovit",
+    "provision": "Ustanovení",
+    "suspend": "Pozastavit",
+    "resume": "Životopis",
+    "halt": "Stůj",
+    "destroy": "Zničit",
+    "update": "Aktualizace pluginů",
+    "repair": "Oprava pluginů",
+    "box": "Krabice",
+    "provider": "Poskytovatel",
+    "status": "Postavení" 
   },
    "about": {
     "vm": "Vagrant Manager",
-    "vmApp": "Manage your vagrant machines",
-    "latestVersion": "the latest version:",
-    "checking": "checking..."
+    "vmApp":  "Spravujte své vaganty",
+    "latestVersion": "poslední verze:",
+    "checking": "kontrola ..."
   },
   "settings": {
-    "settings": "Settings",
-    "language": "Language",
-    "resetToDefaults": "Reset to defaults"
+    "settings": "Nastavení",
+    "language": "Jazyk",
+    "resetToDefaults": "Obnovit výchozí nastavení"
   },
   "process": {
-    "newVersion": "New version is available!"
+    "newVersion": "Nová verze je k dispozici!"
   }
 }
