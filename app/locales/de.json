@@ -1,0 +1,42 @@
+{
+  "main": {
+    "header": "Vagrant Manager",
+    "version": "V {{version}}",
+    "downloadLatest":"Lade die letzte Version herunter",
+    "about": "Über",
+    "aboutVM": "Über | Vagrant Manager",
+    "settings": "Die Einstellungen",
+    "quit": "Verlassen",
+    "startAtLogin": "Automatischer Start",
+    "resetToDefaults": "Auf Standardeinstellung zurücksetzen",
+    "areYouSure": "Bist du sicher?",
+    "yes": "Ja",
+    "no": "Nein",
+    "up": "Oben",
+    "refresh": "Aktualisierung",
+    "provision": "Bereitstellung",
+    "suspend": "Aussetzen",
+    "resume": "Fortsetzen",
+    "halt": "Halt",
+    "destroy": "Zerstören",
+    "update": "Plugin-Aktualisierung",
+    "repair": "Plugin Reparatur",
+    "box": "Kasten",
+    "provider": "Anbieter",
+    "status": "Status" 
+  },
+   "about": {
+    "vm": "Vagrant Manager",
+    "vmApp": "Verwalte deine Landstreicher",
+    "latestVersion": "Die neueste version:",
+    "checking": "Überprüfung..."
+  },
+  "settings": {
+    "settings": "Die Einstellungen",
+    "language": "Sprache",
+    "resetToDefaults":  "Auf Standardeinstellung zurücksetzen"
+  },
+  "process": {
+    "newVersion": "Neue Version ist verfügbar!"
+  }
+}

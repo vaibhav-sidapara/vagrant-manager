@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title data-i18next="settings.settings"></title>
+    <script>require('jquery')</script>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+    	<video poster="assets/images/background.jpg" class="fillWidth" id="bgvid" playsinline autoplay muted loop>
+        <source src="assets/videos/background.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="close" aria-label="Close" id="close-btn">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="col-xs-12 about">
+        <div class="col-lg-12">
+          <img src="assets/logo/windowIcon.png" class="img-responsive">
+        </div>
+        <div class="col-xs-12 text-center">
+          <h4 data-i18next="settings.settings"></h4>
+        </div>
+    <div class="settings">
+      <div id="defaults" class="pointer">
+            <span data-i18next="settings.resetToDefaults"></span>
+      </div>
+      <div class="form-group">
+        <label data-i18next="settings.language"></label>
+        <select class="form-control" name="language" id="language"> <!--Supplement an id here instead of using 'name'-->
+          <!--Keep languages in the alphabet order-->
+          <option value="cs">Čeština</option>
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+          <option value='es'>Español</option>
+          <option value="fr">Français</option>
+          <option value="hi">"िंदी</option>
+          <option value="zh">简体中文</option>
+        </select>
+      </div>  
+    </div>
+    <script>
+      require('./settings.js')
+    </script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "critics": {
+    "lint": {"engine": "standard"}
+  },
+  "dependencies": {
+    "unused-ignores": [
+      "jquery",
+      "shell-path",
+      "shelljs",
+      "i18next-node-fs-backend",
+      "i18next"
+    ]
+  }
+}

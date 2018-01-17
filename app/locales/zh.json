@@ -1,0 +1,42 @@
+{
+  "main": {
+    "header": "流浪經理",
+    "version": "V {{version}}",
+    "downloadLatest": "下載最新版本",
+    "about": "關於",
+    "aboutVM": "關於 | 關於",
+    "settings": "設置",
+    "quit": "放棄",
+    "startAtLogin": "自動啟動",
+    "resetToDefaults": "重置為默認值",
+    "areYouSure": "你確定？",
+    "yes": "是",
+    "no": "无",
+    "up": "向上",
+    "refresh": "刷新",
+    "provision": "規定",
+    "suspend": "中止",
+    "resume": "簡歷",
+    "halt": "停",
+    "destroy": "破壞",
+    "update": "插件更新",
+    "repair": "插件修復",
+    "box": "框",
+    "provider": "提供者",
+    "status": "狀態" 
+  },
+   "about": {
+    "vm": "關於",
+    "vmApp": "管理你的流浪機器",
+    "latestVersion": "最新版本:",
+    "checking": "檢查..."
+  },
+  "settings": {
+    "settings": "設置",
+    "language": "語言",
+    "resetToDefaults": "重置為默認值"
+  },
+  "process": {
+    "newVersion": "新版本可用!"
+  }
+}

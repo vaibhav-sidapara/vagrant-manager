@@ -1,25 +1,118 @@
 {
   "name": "vagrant-manager",
-  "version": "1.0.0",
+  "productName": "Vagrant Manager",
+  "companyName": "Absalom Media",
+  "version": "1.2.0",
   "description": "Manage your vagrant machines in one place with Vagrant Manager",
-  "main": "index.js",
   "scripts": {
-    "start": "electron index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ./app",
+    "dev": "NODE_ENV='development' electron ./app --enable-logging --remote-debugging-port=9222",
+    "postinstall": "electron-builder install-app-deps",
+    "pack-all": "build --dir -mwl --x64 --ia32",
+    "dist-all": "build -mwl --x64 --ia32",
+    "pack": "build --dir",
+    "dist": "build --x64 --ia32",
+    "test": "mocha test",
+    "tdd": "mocha --watch test",
+    "lint": "./node_modules/.bin/standard"
   },
+  "build": {
+    "productName": "vagrant-manager",
+    "appId": "com.electron.vagrant-manager",
+    "copyright": "© 2017 Absalom Media",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "dmg": {
+      "title": "Vagrant Manager",  
+      "icon": "build/icon.icns",
+      "iconSize": 128,
+      "contents": [
+        {
+          "x": 355,
+          "y": 125,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 155,
+          "y": 125,
+          "type": "file"
+        }
+      ]
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis",
+        "7z",
+        "zip"
+      ]
+    },
+    "linux": {
+      "icon": "build/icons/512x512.png",
+      "category": "Development",
+      "packageCategory": "Development",
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm",
+        "freebsd",
+        "pacman",
+        "tar.xz"
+      ]
+    }
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "it",
+      "describe",
+      "beforeEach",
+      "afterEach",
+      "Audio",
+      "fetch",
+      "Notification"
+    ]
+  },  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absalomedia/vagrant-manager"
+  },
+  "bugs": {
+    "url": "https:/github.com/absalomedia/vagrant-manager/issues"
+  },
+  "homepage": "https:/github.com/absalomedia/vagrant-manager#readme",
   "keywords": [
     "Vagrant",
-    "Manager"
+    "Manager",
+    "virtual",
+    "docker",
+    "virtualbox",
+    "vmware"
   ],
-  "author": "Vaibhav Sidapara",
+  "author": "Lawrence Meckan",
+  "contributors": [
+    "Andrii Kostetskyi <kostyandrew@gmail.com>",
+    "Vaibhav Sidapara <vaibhav.sidapara@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "jquery": "^3.1.1",
-    "shelljs": "^0.7.4"
+    "shell-path": "^2.1.0",
+    "shelljs": "^0.7.4",
+    "i18next": "^10.2.1",
+    "i18next-node-fs-backend": "^1.0.0"
   },
   "devDependencies": {
-    "electron-packager": "^8.0.0",
-    "electron-prebuilt": "1.4.1",
-    "shelljs": "^0.7.4"
+    "babel-eslint": "^8.0.3",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "electron": "^1.7.10",
+    "electron-builder": "^19.49.0",
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.3",
+    "spectron": "^3.7.2",
+    "standard": "^10.0.3"
   }
 }

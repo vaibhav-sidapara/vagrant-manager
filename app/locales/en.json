@@ -1,0 +1,42 @@
+{
+  "main": {
+    "header": "Vagrant Manager",
+    "version": "V {{version}}",
+    "downloadLatest": "Download latest",
+    "about": "About",
+    "aboutVM": "About | Vagrant Manager",
+    "settings": "Settings",
+    "quit": "Quit",
+    "startAtLogin": "Start at login",
+    "resetToDefaults": "Reset to defaults",
+    "areYouSure": "Are you sure?",
+    "yes": "Yes",
+    "no": "No",
+    "up": "Up",
+    "refresh": "Refresh",
+    "provision": "Provision",
+    "suspend": "Suspend",
+    "resume": "Resume",
+    "halt": "Halt",
+    "destroy": "Destroy",
+    "update": "Plugin Update",
+    "repair": "Plugin Repair",
+    "box": "Box",
+    "provider": "Provider",
+    "status": "Status" 
+  },
+   "about": {
+    "vm": "Vagrant Manager",
+    "vmApp": "Manage your vagrant machines",
+    "latestVersion": "the latest version:",
+    "checking": "checking..."
+  },
+  "settings": {
+    "settings": "Settings",
+    "language": "Language",
+    "resetToDefaults": "Reset to defaults"
+  },
+  "process": {
+    "newVersion": "New version is available!"
+  }
+}

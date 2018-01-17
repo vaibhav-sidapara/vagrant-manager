@@ -1,0 +1,42 @@
+{
+  "main": {
+    "header": "Administrador vagabundo",
+    "version": "V {{version}}",
+    "downloadLatest":"Descarga la última versión",
+    "about": "Acerca de",
+    "aboutVM": "Acerca de | Administrador vagabundo",
+    "settings": "Configuraciones",
+    "quit": "Dejar",
+    "startAtLogin": "Autoencendido",
+    "resetToDefaults": "Restablecer los valores predeterminados",
+    "areYouSure": "¿Estás seguro?",
+    "yes": "Sí",
+    "no": "No",
+    "up": "Arriba",
+    "refresh": "Refrescar",
+    "provision": "Provisión",
+    "suspend": "Suspender",
+    "resume": "Reanudar",
+    "halt": "Detener",
+    "destroy": "Destruir",
+    "update": "Actualización de complementos",
+    "repair": "Reparación de complementos",
+    "box": "Caja",
+    "provider": "Proveedor",
+    "status": "Estado" 
+  },
+   "about": {
+    "vm": "Administrador vagabundo",
+    "vmApp": "Gestiona tus máquinas vagabundas",
+    "latestVersion": "la última versión:",
+    "checking": "comprobación..."
+  },
+  "settings": {
+    "settings": "Configuraciones",
+    "language": "Idioma",
+    "resetToDefaults": "Restablecer los valores predeterminados"
+  },
+  "process": {
+    "newVersion": "¡Nueva versión disponible!"
+  }
+}

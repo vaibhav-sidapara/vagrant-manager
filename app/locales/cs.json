@@ -1,0 +1,42 @@
+{
+  "main": {
+    "header": "Vagrant Manager",
+    "version": "V {{version}}",
+    "downloadLatest": "Stáhnout nejnovější verzi",
+    "about": "O",
+    "aboutVM": "O | Vagrant Manager",
+    "settings": "Nastavení",
+    "quit": "Přestat",
+    "startAtLogin": "Automatické spuštění",
+    "resetToDefaults": "Obnovit výchozí nastavení",
+    "areYouSure": "Jsi si jistá?",
+    "yes": "Ano",
+    "no": "Ne",
+    "up": "Nahoru",
+    "refresh": "Obnovit",
+    "provision": "Ustanovení",
+    "suspend": "Pozastavit",
+    "resume": "Životopis",
+    "halt": "Stůj",
+    "destroy": "Zničit",
+    "update": "Aktualizace pluginů",
+    "repair": "Oprava pluginů",
+    "box": "Krabice",
+    "provider": "Poskytovatel",
+    "status": "Postavení" 
+  },
+   "about": {
+    "vm": "Vagrant Manager",
+    "vmApp":  "Spravujte své vaganty",
+    "latestVersion": "poslední verze:",
+    "checking": "kontrola ..."
+  },
+  "settings": {
+    "settings": "Nastavení",
+    "language": "Jazyk",
+    "resetToDefaults": "Obnovit výchozí nastavení"
+  },
+  "process": {
+    "newVersion": "Nová verze je k dispozici!"
+  }
+}
