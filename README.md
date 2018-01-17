@@ -4,7 +4,7 @@
     Vagrant Manager
 </h1>
 
-Vagrant Manager is an status bar menu app that lets you manage all of your vagrant machines from one central location.
+Vagrant Manager is a status bar menu app that lets you manage all of your vagrant machines from one central location. It covers multiple languages and plugin management. 
 
 A menubar/taskbar App based on <a href="http://electron.atom.io" target="_blank">Electron</a>.
 
