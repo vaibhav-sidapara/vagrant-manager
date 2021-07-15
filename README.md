@@ -39,4 +39,4 @@ $> npm install && npm start
 
 
 ___
-*Inspired by [Vagrant Manager for OS X](http://vagrantmanager.com/)*
+*Inspired from [Vagrant Manager for OS X](http://vagrantmanager.com/)*
